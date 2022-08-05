@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './MovieList.css';
 
-class MovieList extends Component{
-	constructor(props){
+class MovieList extends React.Component<{}, {movies: [], titleOrder: string, yearOrder: string}>{
+	constructor(props: any){
 		super(props);
 		this.state = {
 			movies:[],
@@ -13,28 +13,28 @@ class MovieList extends Component{
 	}
 
 
-	sort(para){
+	sort(para: string){
 		const { movies } = this.state;
 		let { titleOrder, yearOrder } = this.state;
-		if(para == 'name'){
-			movies.sort((a,b)=>{
-				if(titleOrder == 'asc'){
+		if(para === 'name'){
+			movies.sort((a: { Title: string; },b: { Title: string; })=>{
+				if(titleOrder === 'asc'){
 					return a.Title.charCodeAt(0) - b.Title.charCodeAt(0)
 				}
 
 				return b.Title.charCodeAt(0) - a.Title.charCodeAt(0)
 			})
-			titleOrder = titleOrder == 'asc' ? 'dsc' : 'asc';
+			titleOrder = titleOrder === 'asc' ? 'dsc' : 'asc';
 		}
 		else{
-			movies.sort((a,b)=>{
-				if(yearOrder == 'asc'){
+			movies.sort((a: { Year: number; },b: { Year: number; })=>{
+				if(yearOrder === 'asc'){
 					return a.Year - b.Year
 				}
 
 				return b.Year - a.Year;
 			})
-			yearOrder = yearOrder == 'asc' ? 'dsc' : 'asc';
+			yearOrder = yearOrder === 'asc' ? 'dsc' : 'asc';
 		}
 
 
@@ -70,11 +70,11 @@ class MovieList extends Component{
 					</div>
 				</div>
 				{
-					movies.map((mov,i)=>{
+					movies.map((mov: any, i: React.Key | null | undefined)=>{
 						return (
 							<div className="flex row" key={i}>
 								<div>
-									<img src={mov.Poster} className="poster"/>
+									<img alt='' src={mov.Poster} className="poster"/>
 								</div>
 								<div>{mov.Title}</div>
 								<div>{mov.Year}</div>
